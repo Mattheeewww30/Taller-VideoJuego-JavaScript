@@ -5,7 +5,7 @@ window.addEventListener("load", setCanvas)
 window.addEventListener("resize", setCanvas)
 
 let canvasrSize
-let bombSize
+let elementSize
 
 function setCanvas(){
 
@@ -17,17 +17,26 @@ function setCanvas(){
     }
     canvas.setAttribute("width", canvasrSize)
     canvas.setAttribute("height", canvasrSize)
-    bombSize = canvasrSize / 10
+    elementSize = canvasrSize / 10
     startGame()
 }
 
 
 function startGame(){
 
-    game.font = bombSize + "px Verdana"
+    game.font = elementSize + "px Verdana"
     game.textAlign = "end"
-    for (let i = 1; i <= 10; i++) {
-        game.fillText(emojis["X"], bombSize, bombSize * i)
-    }
 
-}
+    const map = maps[0]
+    const rows = map.trim().split("\n")
+    const rowsCols = rows.map(row => row.trim().split(""))
+
+    rowsCols.forEach((row, rowIndex) => {
+        row.forEach((col, colIndex) => {
+            const posX = elementSize * (colIndex + 1)
+            const posY = elementSize * (rowIndex + 1)
+            game.fillText(emojis[col], posX, posY)
+        })
+    })
+
+} 
