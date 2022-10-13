@@ -38,5 +38,4 @@ function startGame(){
             game.fillText(emojis[col], posX, posY)
         })
     })
-
 } 
