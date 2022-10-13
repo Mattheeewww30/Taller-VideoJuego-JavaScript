@@ -1,10 +1,13 @@
 const canvas = document.querySelector("#game")
 const game = canvas.getContext("2d")
 
-window.addEventListener("load", startGame)
+window.addEventListener("load", setCanvas)
+window.addEventListener("resize", setCanvas)
 
-function startGame(){
-    let canvasrSize
+let canvasrSize
+let bombSize
+
+function setCanvas(){
 
     if (window.innerHeight > window.innerWidth){
         canvasrSize = window.innerWidth * 0.8
@@ -14,8 +17,13 @@ function startGame(){
     }
     canvas.setAttribute("width", canvasrSize)
     canvas.setAttribute("height", canvasrSize)
+    bombSize = canvasrSize / 10
+    startGame()
+}
 
-    const bombSize = canvasrSize / 10
+
+function startGame(){
+
     game.font = bombSize + "px Verdana"
     game.textAlign = "end"
     for (let i = 1; i <= 10; i++) {
