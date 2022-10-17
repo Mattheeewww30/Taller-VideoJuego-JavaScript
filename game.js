@@ -78,21 +78,34 @@ function moveKeyboard(event){
 
 
 function moveUp(){
-    playerPosition.y -= elementSize
-    startGame()
+    if ((playerPosition.y - elementSize) < elementSize){
+    } else{
+        playerPosition.y -= elementSize
+        startGame()
+    }
 }
 
 function moveLeft(){
-    playerPosition.x -= elementSize
-    startGame()
+    if ((playerPosition.x - elementSize) < elementSize){
+    } else{
+        playerPosition.x -= elementSize
+        startGame()
+    }
 }
 
 function moveRight(){
-    playerPosition.x += elementSize
-    startGame()
+    if ((playerPosition.x + elementSize) > canvasSize){
+    } else{
+        playerPosition.x += elementSize
+        startGame()
+    }
 }
 
 function moveDown(){
-    playerPosition.y += elementSize
-    startGame()
+    if ((playerPosition.y + elementSize) > canvasSize){
+    } else{
+        playerPosition.y += elementSize
+        startGame()
+    }
 }
+
