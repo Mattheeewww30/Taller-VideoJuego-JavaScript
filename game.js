@@ -16,6 +16,12 @@ const playerPosition = {
     y: undefined,
 }
 
+const giftPosition = {
+    x: undefined,
+    y: undefined,
+}
+
+
 function setCanvas(){
 
     if (window.innerHeight > window.innerWidth){
@@ -51,6 +57,9 @@ function startGame(){
                     playerPosition.x = posX
                     playerPosition.y = posY
                 }
+            } else if (col == "I"){
+                giftPosition.x = posX
+                giftPosition.y = posY
             }
 
             game.fillText(emojis[col], posX, posY)
@@ -58,7 +67,15 @@ function startGame(){
     })
     movePlayer()
 }
+
 function movePlayer(){
+    const giftCollisionX = playerPosition.x.toFixed() == giftPosition.x.toFixed()
+    const giftCollisionY = playerPosition.y.toFixed() == giftPosition.y.toFixed()
+    const giftCollison = giftCollisionX && giftCollisionY
+    if (giftCollison){
+        console.log("Subiste")
+    }
+
     game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y)
 }
 
