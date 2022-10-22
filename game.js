@@ -10,6 +10,7 @@ window.addEventListener("resize", setCanvas)
 
 let canvasSize
 let elementSize
+let level = 0
 
 const playerPosition = {
     x: undefined,
@@ -43,7 +44,13 @@ function startGame(){
     game.font = elementSize + "px Verdana"
     game.textAlign = "end"
 
-    const map = maps[0]
+    const map = maps[level]
+
+    if (!map){
+        gameWin()
+        return
+    }
+
     const rows = map.trim().split("\n")
     const rowsCols = rows.map(row => row.trim().split(""))
 
@@ -82,7 +89,7 @@ function movePlayer(){
     const giftCollisionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3)
     const giftCollison = giftCollisionX && giftCollisionY
     if (giftCollison){
-        console.log("Subiste")
+        levelWin()
     }
 
     const bombCollision = bombPositions.find(bomb => {
@@ -97,6 +104,16 @@ function movePlayer(){
 
     game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y)
 }
+
+function levelWin(){
+    level++
+    startGame()
+}
+
+function gameWin(){
+    console.log("ganaste")
+}
+
 
 window.addEventListener("keydown", moveKeyboard)
 buttonUp.addEventListener("click", moveUp)
