@@ -21,6 +21,8 @@ const giftPosition = {
     y: undefined,
 }
 
+let bombPositions = []
+
 
 function setCanvas(){
 
@@ -45,6 +47,7 @@ function startGame(){
     const rows = map.trim().split("\n")
     const rowsCols = rows.map(row => row.trim().split(""))
 
+    bombPositions = []
     game.clearRect(0, 0, canvasSize, canvasSize)
 
     rowsCols.forEach((row, rowIndex) => {
@@ -60,6 +63,11 @@ function startGame(){
             } else if (col == "I"){
                 giftPosition.x = posX
                 giftPosition.y = posY
+            } else if (col == "X"){
+                bombPositions.push({
+                    x: posX,
+                    y: posY,
+                })
             }
 
             game.fillText(emojis[col], posX, posY)
@@ -69,12 +77,23 @@ function startGame(){
 }
 
 function movePlayer(){
-    const giftCollisionX = playerPosition.x.toFixed() == giftPosition.x.toFixed()
-    const giftCollisionY = playerPosition.y.toFixed() == giftPosition.y.toFixed()
+
+    const giftCollisionX = playerPosition.x.toFixed(3) == giftPosition.x.toFixed(3)
+    const giftCollisionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3)
     const giftCollison = giftCollisionX && giftCollisionY
     if (giftCollison){
         console.log("Subiste")
     }
+
+    const bombCollision = bombPositions.find(bomb => {
+        const bombCollisionX = bomb.x.toFixed(3) == playerPosition.x.toFixed(3)
+        const bombCollisionY = bomb.y.toFixed(3) == playerPosition.y.toFixed(3)
+        return bombCollisionX && bombCollisionY
+    })
+    if (bombCollision){
+        console.log("Chocaste")
+    }
+
 
     game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y)
 }
