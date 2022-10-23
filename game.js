@@ -11,6 +11,7 @@ window.addEventListener("resize", setCanvas)
 let canvasSize
 let elementSize
 let level = 0
+let lives = 0
 
 const playerPosition = {
     x: undefined,
@@ -98,15 +99,24 @@ function movePlayer(){
         return bombCollisionX && bombCollisionY
     })
     if (bombCollision){
-        console.log("Chocaste")
+        levelFail()
     }
-
-
     game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y)
 }
 
 function levelWin(){
     level++
+    startGame()
+}
+
+function levelFail(){
+    lives --
+    if (lives <= 0){
+        level = 0
+        lives = 3
+    }
+    playerPosition.x = undefined
+    playerPosition.y = undefined
     startGame()
 }
 
