@@ -4,6 +4,7 @@ const buttonUp = document.querySelector("#up")
 const buttonLeft = document.querySelector("#left")
 const buttonRight = document.querySelector("#right")
 const buttonDown = document.querySelector("#down")
+const spanLives = document.querySelector("#lives")
 
 window.addEventListener("load", setCanvas)
 window.addEventListener("resize", setCanvas)
@@ -11,18 +12,16 @@ window.addEventListener("resize", setCanvas)
 let canvasSize
 let elementSize
 let level = 0
-let lives = 0
+let lives = 3
 
 const playerPosition = {
     x: undefined,
     y: undefined,
 }
-
 const giftPosition = {
     x: undefined,
     y: undefined,
 }
-
 let bombPositions = []
 
 
@@ -55,6 +54,8 @@ function startGame(){
     const rows = map.trim().split("\n")
     const rowsCols = rows.map(row => row.trim().split(""))
 
+    showLives()
+
     bombPositions = []
     game.clearRect(0, 0, canvasSize, canvasSize)
 
@@ -85,7 +86,6 @@ function startGame(){
 }
 
 function movePlayer(){
-
     const giftCollisionX = playerPosition.x.toFixed(3) == giftPosition.x.toFixed(3)
     const giftCollisionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3)
     const giftCollison = giftCollisionX && giftCollisionY
@@ -115,6 +115,9 @@ function levelFail(){
         level = 0
         lives = 3
     }
+
+    
+
     playerPosition.x = undefined
     playerPosition.y = undefined
     startGame()
@@ -123,6 +126,11 @@ function levelFail(){
 function gameWin(){
     console.log("ganaste")
 }
+
+function showLives() {
+    spanLives.innerHTML = emojis["HEART"].repeat(lives)
+}
+
 
 
 window.addEventListener("keydown", moveKeyboard)
