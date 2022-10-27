@@ -14,6 +14,7 @@ let canvasSize
 let elementSize
 let level = 0
 let lives = 3
+
 let timeStart
 let timeInterval
 let timePlayer
@@ -129,9 +130,6 @@ function levelFail(){
     playerPosition.x = undefined
     playerPosition.y = undefined
     startGame()
-    if (lives == 0){
-        clearInterval(timeInterval)
-    }
 }
 
 function gameWin(){
