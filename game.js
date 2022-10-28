@@ -6,6 +6,8 @@ const buttonRight = document.querySelector("#right")
 const buttonDown = document.querySelector("#down")
 const spanLives = document.querySelector("#lives")
 const spanTime = document.querySelector("#time")
+const spanRecord = document.querySelector("#record")
+const pResult = document.querySelector("#result")
 
 window.addEventListener("load", setCanvas)
 window.addEventListener("resize", setCanvas)
@@ -60,6 +62,7 @@ function startGame(){
     if (!timeStart){
         timeStart = Date.now()
         timeInterval = setInterval(showTime, 100)
+        showRecord()
     }
 
     const rows = map.trim().split("\n")
@@ -133,8 +136,24 @@ function levelFail(){
 }
 
 function gameWin(){
-    console.log("ganaste")
     clearInterval(timeInterval)
+    setRecord()
+}
+
+function setRecord(){
+    const recordTime = localStorage.getItem("record_time")
+    const playerTime = Date.now() - timeStart
+
+    if (recordTime){
+        if (recordTime >= playerTime){
+            localStorage.setItem("record_time", playerTime)
+            pResult.innerHTML = "Superaste el Récord"
+        } else {
+            pResult.innerHTML = "Ganaste pero lo puedes hacer en un mejor tiempo"
+        }
+    } else {
+        localStorage.setItem("record_time", playerTime)
+    }
 }
 
 function showLives() {
@@ -143,6 +162,10 @@ function showLives() {
 
 function showTime(){
     spanTime.innerHTML = Date.now() - timeStart
+}
+
+function showRecord(){
+    spanRecord.innerHTML = localStorage.getItem("record_time")
 }
 
 
